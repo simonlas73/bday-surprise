@@ -4,7 +4,7 @@ A mobile-first, single-page birthday surprise website that progressively reveals
 
 ## 🌐 Live Site
 
-**[https://simonlas73.github.io/bday-surprise/](https://simonlas73.github.io/bday-surprise/)**
+**[https://bday-surprise.vercel.app](https://bday-surprise.vercel.app)**
 
 Scan the QR code below to open it directly on your mobile device:
 
@@ -21,4 +21,14 @@ Scan the QR code below to open it directly on your mobile device:
 
 ## Deployment
 
-The site is automatically deployed to [GitHub Pages](https://pages.github.com/) via the included GitHub Actions workflow (`.github/workflows/deploy.yml`) whenever changes are pushed to the `main` branch.
+The site is automatically deployed to [Vercel](https://vercel.com/) via the included GitHub Actions workflow (`.github/workflows/deploy.yml`) whenever changes are pushed to the `main` branch.
+
+### Setup
+
+Before the workflow can run, add the following secrets to your GitHub repository (**Settings → Secrets and variables → Actions**):
+
+| Secret | How to obtain |
+|--------|--------------|
+| `VERCEL_TOKEN` | [Vercel dashboard](https://vercel.com/account/tokens) → create a token |
+| `VERCEL_ORG_ID` | Run `vercel link` locally, then check `.vercel/project.json` |
+| `VERCEL_PROJECT_ID` | Same `.vercel/project.json` file after linking |
