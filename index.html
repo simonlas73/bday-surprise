@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎉 A Special Surprise For You!</title>
+  <title>🎉 Egy Különleges Meglepetés Neked!</title>
   <style>
     /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -279,12 +279,13 @@
       <div class="dot"></div>
       <div class="dot"></div>
       <div class="dot"></div>
+      <div class="dot"></div>
     </div>
     <div class="card">
       <span class="emoji-main">🎂</span>
-      <h1>Happy Birthday!</h1>
-      <p>Today is all about you. 🎉<br>We have prepared something very special…</p>
-      <button class="btn" data-goto="2">What is it? →</button>
+      <h1>Boldog Születésnapot!</h1>
+      <p>Ma minden rólad szól. 🎉<br>Készítettem valami különlegeset…</p>
+      <button class="btn" data-goto="2">Mi az? →</button>
     </div>
   </section>
 
@@ -297,18 +298,19 @@
       <div class="dot done"></div>
       <div class="dot"></div>
       <div class="dot"></div>
+      <div class="dot"></div>
     </div>
     <div class="card">
       <span class="emoji-main">🔮</span>
-      <h2>A Mystery Awaits…</h2>
-      <p>Your surprise involves adventure, breathtaking views, and memories that will last a lifetime.</p>
-      <p style="margin-top:12px">Think wide open spaces, ancient history, and something truly magical ✨</p>
-      <button class="btn" data-goto="3">Give me a clue! →</button>
+      <h2>Egy titok vár…</h2>
+      <p>A meglepetésed kalandot, lélegzetelállító kilátásokat és életre szóló emlékeket tartogat.</p>
+      <p style="margin-top:12px">Gondolj hatalmas, nyitott terekre, ősi történelemre és valami igazán varázslatosra ✨</p>
+      <button class="btn" data-goto="3">Adj egy tippet! →</button>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════
-       STAGE 3 — Pack Your Bags!
+       STAGE 3 — Movie Clue
   ════════════════════════════════════════════ -->
   <section class="stage" id="stage-3" aria-label="Step 3">
     <div class="dots" id="dots-3">
@@ -316,27 +318,51 @@
       <div class="dot done"></div>
       <div class="dot done"></div>
       <div class="dot"></div>
+      <div class="dot"></div>
     </div>
     <div class="card">
-      <span class="emoji-main">✈️</span>
-      <h2>Pack Your Bags!</h2>
-      <p>Here are a few clues to get you guessing…</p>
-      <ul class="clues">
-        <li><span class="icon">🏔️</span><span>Majestic highlands as far as the eye can see</span></li>
-        <li><span class="icon">🏰</span><span>Ancient castles standing for centuries</span></li>
-        <li><span class="icon">🌿</span><span>Rolling green hills covered in purple heather</span></li>
-        <li><span class="icon">🥃</span><span>Famous for a very fine whisky…</span></li>
-        <li><span class="icon">🌧️</span><span>Bring a raincoat — just in case!</span></li>
-      </ul>
-      <button class="btn" data-goto="4">Reveal the surprise! 🎁</button>
+      <span class="emoji-main">🎬</span>
+      <h2>Ismerős a helyszín?</h2>
+      <img
+        src="https://media.giphy.com/media/jGzA9sQOvsO9W/giphy.gif"
+        alt=""
+        style="width:100%;border-radius:12px;margin:12px 0;"
+      />
+      <button class="btn" data-goto="4">Na, kitaláltad már? →</button>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════
-       STAGE 4 — Scotland! (Final Reveal)
+       STAGE 4 — Pack Your Bags!
   ════════════════════════════════════════════ -->
-  <section class="stage" id="stage-4" aria-label="Step 4 — Final Reveal">
+  <section class="stage" id="stage-4" aria-label="Step 4">
     <div class="dots" id="dots-4">
+      <div class="dot done"></div>
+      <div class="dot done"></div>
+      <div class="dot done"></div>
+      <div class="dot done"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="card">
+      <span class="emoji-main">✈️</span>
+      <h2>Pakold a Csomagod!</h2>
+      <p>Íme néhány nyom, hogy találgathass…</p>
+      <ul class="clues">
+        <li><span class="icon">🏔️</span><span>Fenséges felföldek, ameddig a szem ellát</span></li>
+        <li><span class="icon">🏰</span><span>Ősi várak, amelyek évszázadok óta állnak</span></li>
+        <li><span class="icon">🌿</span><span>Hullámzó zöld dombok lila hanga borítással</span></li>
+        <li><span class="icon">🌧️</span><span>Hozz esőkabátot — csak a biztonság kedvéért!</span></li>
+      </ul>
+      <button class="btn" data-goto="5">Mutasd meg a meglepetést! 🎁</button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       STAGE 5 — Scotland! (Final Reveal)
+  ════════════════════════════════════════════ -->
+  <section class="stage" id="stage-5" aria-label="Step 5 — Final Reveal">
+    <div class="dots" id="dots-5">
+      <div class="dot done"></div>
       <div class="dot done"></div>
       <div class="dot done"></div>
       <div class="dot done"></div>
@@ -344,14 +370,13 @@
     </div>
     <div class="card">
       <span class="emoji-main">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>
-      <h1>You're going to<br><span class="name-highlight">Scotland!</span></h1>
-      <p>A full week of Highland adventures, stunning landscapes and unforgettable experiences — just for you! 🎉</p>
+      <h1>Utazol<br><span class="name-highlight">Skóciába!</span></h1>
+      <p>Egy teljes hét felvidéki kalandokkal, lenyűgöző tájakkal és felejthetetlen élményekkel — csak neked! 🎉</p>
       <ul class="details">
-        <li><span class="icon">📅</span><span><strong>Duration:</strong> 7 nights / 8 days</span></li>
-        <li><span class="icon">✈️</span><span><strong>Travel:</strong> Flights included</span></li>
-        <li><span class="icon">🏡</span><span><strong>Stay:</strong> Cosy Highland retreat</span></li>
-        <li><span class="icon">🗺️</span><span><strong>Explore:</strong> Edinburgh · Loch Ness · Glencoe · Isle of Skye</span></li>
-        <li><span class="icon">🎁</span><span><strong>Everything</strong> organised — just enjoy!</span></li>
+        <li><span class="icon">📅</span><span><strong>Időtartam:</strong> Július 11-17.</span></li>
+        <li><span class="icon">✈️</span><span><strong>Utazás:</strong> Repülőjegy foglalva</span></li>
+        <li><span class="icon">🏡</span><span><strong>Szállás:</strong> Edinburgh</span></li>
+        <li><span class="icon">🗺️</span><span><strong>Felfedezés:</strong> A programokat válasszuk ki együtt!</span></li>
       </ul>
       <div class="tartan-stripe"></div>
     </div>
@@ -365,8 +390,9 @@
   const gradients = {
     1: ['#ff6b9d','#ff8c42'],
     2: ['#a855f7','#6366f1'],
-    3: ['#0ea5e9','#10b981'],
-    4: ['#1a472a','#003366'],
+    3: ['#e11d48','#f97316'],
+    4: ['#0ea5e9','#10b981'],
+    5: ['#1a472a','#003366'],
   };
 
   const bg = document.getElementById('bg');
@@ -514,7 +540,7 @@
     currentStep = step;
 
     // Trigger confetti on final step
-    if (step === 4) {
+    if (step === 5) {
       setTimeout(startConfetti, 400);
     }
   }
