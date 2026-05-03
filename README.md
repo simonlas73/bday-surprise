@@ -4,7 +4,9 @@ A mobile-first, single-page birthday surprise website that progressively reveals
 
 ## 🌐 Live Site
 
-**[https://bday-surprise.vercel.app](https://project-0g400-git-copilot-deploy-ap-ededbe-simonlas73s-projects.vercel.app/)]([https://bday-surprise.vercel.app](https://project-0g400-git-copilot-deploy-ap-ededbe-simonlas73s-projects.vercel.app/))**
+The site is deployed via GitHub Pages. Once enabled, it will be available at:
+
+**`https://<your-github-username>.github.io/bday-surprise/`**
 
 Scan the QR code below to open it directly on your mobile device:
 
@@ -21,14 +23,11 @@ Scan the QR code below to open it directly on your mobile device:
 
 ## Deployment
 
-The site is automatically deployed to [Vercel](https://vercel.com/) via the included GitHub Actions workflow (`.github/workflows/deploy.yml`) whenever changes are pushed to the `main` branch.
+The site is automatically deployed to [GitHub Pages](https://pages.github.com/) via the included GitHub Actions workflow (`.github/workflows/deploy.yml`) whenever changes are pushed to the `main` branch.
 
 ### Setup
 
-Before the workflow can run, add the following secrets to your GitHub repository (**Settings → Secrets and variables → Actions**):
+1. Go to your repository **Settings → Pages**
+2. Under **Source**, select **GitHub Actions**
+3. Push to `main` — the workflow will deploy automatically
 
-| Secret | How to obtain |
-|--------|--------------|
-| `VERCEL_TOKEN` | [Vercel dashboard](https://vercel.com/account/tokens) → create a token |
-| `VERCEL_ORG_ID` | Run `vercel link` locally, then check `.vercel/project.json` |
-| `VERCEL_PROJECT_ID` | Same `.vercel/project.json` file after linking |
