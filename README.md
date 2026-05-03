@@ -4,13 +4,13 @@ A mobile-first, single-page birthday surprise website that progressively reveals
 
 ## 🌐 Live Site
 
-The site is deployed via GitHub Pages. Once enabled, it will be available at:
+The site is deployed via GitHub Pages:
 
-**`https://<your-github-username>.github.io/bday-surprise/`**
+**[https://simonlas73.github.io/bday-surprise/](https://simonlas73.github.io/bday-surprise/)**
 
 Scan the QR code below to open it directly on your mobile device:
 
-![QR Code](qr.png)
+![QR Code](https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fsimonlas73.github.io%2Fbday-surprise%2F&qzone=2)
 
 ## How it works
 
