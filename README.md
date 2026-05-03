@@ -4,7 +4,7 @@ A mobile-first, single-page birthday surprise website that progressively reveals
 
 ## 🌐 Live Site
 
-**[https://bday-surprise.vercel.app](https://bday-surprise.vercel.app)**
+**[[https://bday-surprise.vercel.app](https://project-0g400-git-copilot-deploy-ap-ededbe-simonlas73s-projects.vercel.app/)]([https://bday-surprise.vercel.app](https://project-0g400-git-copilot-deploy-ap-ededbe-simonlas73s-projects.vercel.app/))**
 
 Scan the QR code below to open it directly on your mobile device:
 
