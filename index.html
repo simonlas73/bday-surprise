@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎉 A Special Surprise For You!</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --step1-bg1: #ff6b9d;
+      --step1-bg2: #ff8c42;
+      --step2-bg1: #a855f7;
+      --step2-bg2: #6366f1;
+      --step3-bg1: #0ea5e9;
+      --step3-bg2: #10b981;
+      --step4-bg1: #1a472a; /* Scotland dark green */
+      --step4-bg2: #003366; /* Scotland blue */
+      --card-bg: rgba(255,255,255,0.15);
+      --card-border: rgba(255,255,255,0.3);
+      --text: #ffffff;
+      --btn-bg: rgba(255,255,255,0.25);
+      --btn-hover: rgba(255,255,255,0.4);
+      --btn-border: rgba(255,255,255,0.6);
+      --shadow: 0 8px 32px rgba(0,0,0,0.25);
+      --radius: 20px;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* ── Background ── */
+    #bg {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, var(--step1-bg1), var(--step1-bg2));
+      transition: background 1s ease;
+      z-index: 0;
+    }
+
+    /* ── Particles canvas ── */
+    #particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ── Stages container ── */
+    #stages {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    /* ── Individual Stage ── */
+    .stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px 40px;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
+      text-align: center;
+    }
+
+    .stage.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+    }
+
+    .stage.exit-left {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: var(--shadow);
+    }
+
+    /* ── Typography ── */
+    .emoji-main {
+      font-size: 72px;
+      line-height: 1;
+      margin-bottom: 16px;
+      display: block;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      opacity: 0.92;
+    }
+
+    /* ── Progress dots ── */
+    .dots {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      transition: background 0.4s, transform 0.4s;
+    }
+
+    .dot.done {
+      background: rgba(255,255,255,0.85);
+      transform: scale(1.2);
+    }
+
+    /* ── Button ── */
+    .btn {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 14px 36px;
+      background: var(--btn-bg);
+      border: 2px solid var(--btn-border);
+      border-radius: 50px;
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+      background: var(--btn-hover);
+    }
+
+    /* ── Clues list (step 3) ── */
+    .clues {
+      list-style: none;
+      margin: 18px 0 0;
+      text-align: left;
+    }
+
+    .clues li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.97rem;
+      line-height: 1.5;
+    }
+
+    .clues li span.icon { font-size: 1.3rem; flex-shrink: 0; }
+
+    /* ── Scotland details (step 4) ── */
+    .details {
+      list-style: none;
+      margin: 20px 0 0;
+      text-align: left;
+    }
+
+    .details li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      line-height: 1.5;
+    }
+
+    .details li:last-child { border-bottom: none; }
+    .details li span.icon { font-size: 1.4rem; flex-shrink: 0; }
+
+    /* ── Tartan stripe accent ── */
+    .tartan-stripe {
+      width: 100%;
+      height: 6px;
+      background: repeating-linear-gradient(
+        90deg,
+        #003366 0px, #003366 16px,
+        #ffffff 16px, #ffffff 20px,
+        #003366 20px, #003366 36px,
+        #006b2b 36px, #006b2b 52px,
+        #003366 52px, #003366 68px,
+        #ffffff 68px, #ffffff 72px,
+        #003366 72px, #003366 88px
+      );
+      border-radius: 3px;
+      margin: 18px 0 0;
+    }
+
+    /* ── Confetti canvas (step 4) ── */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    /* ── Step 1 big name ── */
+    .name-highlight {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 4px 14px;
+      margin-top: 6px;
+      font-size: 1.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Animated gradient background -->
+<div id="bg"></div>
+
+<!-- Particle canvas -->
+<canvas id="particles"></canvas>
+
+<!-- Confetti canvas (final reveal) -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ═══════════════════════════════════════════
+     STAGE 1 — Happy Birthday!
+════════════════════════════════════════════ -->
+<div id="stages">
+  <section class="stage active" id="stage-1" aria-label="Step 1">
+    <div class="dots" id="dots-1">
+      <div class="dot done"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="card">
+      <span class="emoji-main">🎂</span>
+      <h1>Happy Birthday!</h1>
+      <p>Today is all about you. 🎉<br>We have prepared something very special…</p>
+      <button class="btn" data-goto="2">What is it? →</button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       STAGE 2 — A Mystery Awaits
+  ════════════════════════════════════════════ -->
+  <section class="stage" id="stage-2" aria-label="Step 2">
+    <div class="dots" id="dots-2">
+      <div class="dot done"></div>
+      <div class="dot done"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="card">
+      <span class="emoji-main">🔮</span>
+      <h2>A Mystery Awaits…</h2>
+      <p>Your surprise involves adventure, breathtaking views, and memories that will last a lifetime.</p>
+      <p style="margin-top:12px">Think wide open spaces, ancient history, and something truly magical ✨</p>
+      <button class="btn" data-goto="3">Give me a clue! →</button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       STAGE 3 — Pack Your Bags!
+  ════════════════════════════════════════════ -->
+  <section class="stage" id="stage-3" aria-label="Step 3">
+    <div class="dots" id="dots-3">
+      <div class="dot done"></div>
+      <div class="dot done"></div>
+      <div class="dot done"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="card">
+      <span class="emoji-main">✈️</span>
+      <h2>Pack Your Bags!</h2>
+      <p>Here are a few clues to get you guessing…</p>
+      <ul class="clues">
+        <li><span class="icon">🏔️</span><span>Majestic highlands as far as the eye can see</span></li>
+        <li><span class="icon">🏰</span><span>Ancient castles standing for centuries</span></li>
+        <li><span class="icon">🌿</span><span>Rolling green hills covered in purple heather</span></li>
+        <li><span class="icon">🥃</span><span>Famous for a very fine whisky…</span></li>
+        <li><span class="icon">🌧️</span><span>Bring a raincoat — just in case!</span></li>
+      </ul>
+      <button class="btn" data-goto="4">Reveal the surprise! 🎁</button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       STAGE 4 — Scotland! (Final Reveal)
+  ════════════════════════════════════════════ -->
+  <section class="stage" id="stage-4" aria-label="Step 4 — Final Reveal">
+    <div class="dots" id="dots-4">
+      <div class="dot done"></div>
+      <div class="dot done"></div>
+      <div class="dot done"></div>
+      <div class="dot done"></div>
+    </div>
+    <div class="card">
+      <span class="emoji-main">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>
+      <h1>You're going to<br><span class="name-highlight">Scotland!</span></h1>
+      <p>A full week of Highland adventures, stunning landscapes and unforgettable experiences — just for you! 🎉</p>
+      <ul class="details">
+        <li><span class="icon">📅</span><span><strong>Duration:</strong> 7 nights / 8 days</span></li>
+        <li><span class="icon">✈️</span><span><strong>Travel:</strong> Flights included</span></li>
+        <li><span class="icon">🏡</span><span><strong>Stay:</strong> Cosy Highland retreat</span></li>
+        <li><span class="icon">🗺️</span><span><strong>Explore:</strong> Edinburgh · Loch Ness · Glencoe · Isle of Skye</span></li>
+        <li><span class="icon">🎁</span><span><strong>Everything</strong> organised — just enjoy!</span></li>
+      </ul>
+      <div class="tartan-stripe"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+  /* ──────────────────────────────────────────
+     Background gradient transitions
+  ────────────────────────────────────────── */
+  const gradients = {
+    1: ['#ff6b9d','#ff8c42'],
+    2: ['#a855f7','#6366f1'],
+    3: ['#0ea5e9','#10b981'],
+    4: ['#1a472a','#003366'],
+  };
+
+  const bg = document.getElementById('bg');
+
+  function setBg(step) {
+    const [c1, c2] = gradients[step];
+    bg.style.background = `linear-gradient(135deg, ${c1}, ${c2})`;
+  }
+
+  /* ──────────────────────────────────────────
+     Floating particles (hearts / stars)
+  ────────────────────────────────────────── */
+  const pCanvas = document.getElementById('particles');
+  const pCtx = pCanvas.getContext('2d');
+  const particleEmojis = ['❤️','✨','⭐','🌸','💫','🎀'];
+  let particles = [];
+
+  function resizeParticles() {
+    pCanvas.width  = window.innerWidth;
+    pCanvas.height = window.innerHeight;
+  }
+  resizeParticles();
+  window.addEventListener('resize', resizeParticles);
+
+  function spawnParticle() {
+    particles.push({
+      x: Math.random() * pCanvas.width,
+      y: pCanvas.height + 30,
+      size: 16 + Math.random() * 18,
+      speed: 0.6 + Math.random() * 1.2,
+      drift: (Math.random() - 0.5) * 0.8,
+      opacity: 0.6 + Math.random() * 0.4,
+      emoji: particleEmojis[Math.floor(Math.random() * particleEmojis.length)],
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.04,
+    });
+  }
+
+  let spawnTimer = 0;
+  function animateParticles(ts) {
+    pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+    spawnTimer++;
+    if (spawnTimer % 40 === 0) spawnParticle();
+
+    particles = particles.filter(p => p.y > -40);
+    for (const p of particles) {
+      p.y -= p.speed;
+      p.x += p.drift;
+      p.rotation += p.rotSpeed;
+      pCtx.save();
+      pCtx.globalAlpha = p.opacity;
+      pCtx.font = `${p.size}px serif`;
+      pCtx.translate(p.x, p.y);
+      pCtx.rotate(p.rotation);
+      pCtx.fillText(p.emoji, -p.size / 2, p.size / 2);
+      pCtx.restore();
+    }
+    requestAnimationFrame(animateParticles);
+  }
+  requestAnimationFrame(animateParticles);
+
+  /* ──────────────────────────────────────────
+     Confetti for the final reveal
+  ────────────────────────────────────────── */
+  const cCanvas  = document.getElementById('confetti-canvas');
+  const cCtx     = cCanvas.getContext('2d');
+  let confettiBits = [];
+  let confettiActive = false;
+
+  function startConfetti() {
+    cCanvas.width  = window.innerWidth;
+    cCanvas.height = window.innerHeight;
+    cCanvas.style.opacity = '1';
+    confettiActive = true;
+    confettiBits = [];
+    const colors = ['#FFD700','#FF6B6B','#4ECDC4','#45B7D1','#96E6A1','#DDA0DD','#F7DC6F','#fff'];
+    for (let i = 0; i < 120; i++) {
+      confettiBits.push({
+        x: Math.random() * cCanvas.width,
+        y: -20 - Math.random() * cCanvas.height * 0.5,
+        w: 6 + Math.random() * 10,
+        h: 10 + Math.random() * 16,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        speed: 2 + Math.random() * 4,
+        drift: (Math.random() - 0.5) * 2,
+        rot: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.15,
+        opacity: 0.85 + Math.random() * 0.15,
+      });
+    }
+    animateConfetti();
+  }
+
+  function animateConfetti() {
+    if (!confettiActive) return;
+    cCtx.clearRect(0, 0, cCanvas.width, cCanvas.height);
+    let allGone = true;
+    for (const c of confettiBits) {
+      if (c.y < cCanvas.height + 20) allGone = false;
+      c.y += c.speed;
+      c.x += c.drift;
+      c.rot += c.rotSpeed;
+      cCtx.save();
+      cCtx.globalAlpha = c.opacity;
+      cCtx.fillStyle = c.color;
+      cCtx.translate(c.x, c.y);
+      cCtx.rotate(c.rot);
+      cCtx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
+      cCtx.restore();
+    }
+    if (allGone) {
+      confettiActive = false;
+      cCanvas.style.opacity = '0';
+    } else {
+      requestAnimationFrame(animateConfetti);
+    }
+  }
+
+  /* ──────────────────────────────────────────
+     Stage navigation
+  ────────────────────────────────────────── */
+  let currentStep = 1;
+
+  function goTo(step) {
+    if (step === currentStep) return;
+
+    const current = document.getElementById(`stage-${currentStep}`);
+    const next    = document.getElementById(`stage-${step}`);
+
+    // Exit current
+    current.classList.remove('active');
+    current.classList.add('exit-left');
+
+    // Cleanup after animation
+    setTimeout(() => {
+      current.classList.remove('exit-left');
+    }, 700);
+
+    // Enter next
+    next.classList.add('active');
+
+    // Update background
+    setBg(step);
+
+    currentStep = step;
+
+    // Trigger confetti on final step
+    if (step === 4) {
+      setTimeout(startConfetti, 400);
+    }
+  }
+
+  /* ── Initial background ── */
+  setBg(1);
+
+  /* ── Wire up navigation buttons ── */
+  document.querySelectorAll('.btn[data-goto]').forEach(btn => {
+    btn.addEventListener('click', () => goTo(Number(btn.dataset.goto)));
+  });
+</script>
+</body>
+</html>
